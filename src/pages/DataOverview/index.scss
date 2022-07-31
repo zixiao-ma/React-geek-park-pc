@@ -1,0 +1,33 @@
+
+.md-one-icon {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background-color: pink;
+  font-size: 20px;
+  border-radius: 50px;
+  box-shadow: 0 0 10px -4px #666;
+  color: #fff;
+}
+
+.ModuleOne {
+  .ant-card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h4 {
+      margin: 10px 0;
+      color: #0c63e4;
+    }
+  }
+}
+
+
+.echartsCard {
+
+  .ant-card-body {
+    height: 450px;
+  }
+}

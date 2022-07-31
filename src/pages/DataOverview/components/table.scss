@@ -1,0 +1,17 @@
+td {
+  text-align: center;
+  padding: 10px 25px;
+  color: #666;
+}
+
+tr {
+  &:nth-child(2) {
+    td {
+      color: #0c63e4;
+
+      &:first-child {
+        color: #666;
+      }
+    }
+  }
+}

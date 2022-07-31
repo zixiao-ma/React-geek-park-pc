@@ -24,10 +24,16 @@ const HomeLayout = () => {
             path: key,
             name: navigateData[key]
         }
+        setSelectedKey(key)
         tagsStore.addTag(obj)
         Navigate(key)
     }
-
+    const delTag = (index) => {
+        tagsStore.delTag(index)
+    }
+    const handleClickTag = path => {
+        setSelectedKey(path)
+    }
     useEffect(() => {
         try {
             userStore.getUserInfo()
@@ -49,7 +55,7 @@ const HomeLayout = () => {
                 <Sider width={200} className="site-layout-background">
                     <Menu
                         mode="inline"
-                        defaultSelectedKeys={[selectedKey]}
+                        defaultSelectedKeys={selectedKey}
                         theme={'dark'}
                         onClick={handleMenuClick}
                         style={{
@@ -60,7 +66,8 @@ const HomeLayout = () => {
                     />
                 </Sider>
                 <Layout>
-                    <TagsView data={tagsStore.tagsArr}></TagsView>
+                    <TagsView highlight={selectedKey} ClickTag={handleClickTag} data={tagsStore.tagsArr}
+                              delTag={delTag}></TagsView>
                     <Content
                         className="site-layout-background"
                         style={{

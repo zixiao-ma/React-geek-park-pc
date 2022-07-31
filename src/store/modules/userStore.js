@@ -15,7 +15,6 @@ class UserStore {
     getUserInfo = async () => {
         const res = await API.getUserInfo()
         this.userInfo = res
-        console.log(res)
     }
 
 }

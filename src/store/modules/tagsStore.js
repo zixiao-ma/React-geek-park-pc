@@ -7,16 +7,25 @@ import {setItem, getItem} from "@/utils/storage";
 import {TAGSVIEW} from "@/utils/publicVariable";
 
 class TagsStore {
-    tagsArr = JSON.parse(getItem(TAGSVIEW) || '[]')
+    tagsArr = []
 
     constructor() {
         makeAutoObservable(this)
+        this.tagsArr = getItem(TAGSVIEW) || []
     }
 
     addTag(obj) {
-        this.tagsArr.push(obj)
-        console.log(this.tagsArr)
-        setItem(TAGSVIEW, this.tagsArr)
+        let index = this.tagsArr.findIndex(item => item.path === obj.path)
+        if (index === -1) {
+            this.tagsArr.push(obj)
+            setItem(TAGSVIEW, JSON.stringify(this.tagsArr))
+        }
+
+    }
+
+    delTag(index) {
+        this.tagsArr.splice(index, 1)
+        setItem(TAGSVIEW, JSON.stringify(this.tagsArr))
     }
 }
 

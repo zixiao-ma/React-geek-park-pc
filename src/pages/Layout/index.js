@@ -5,18 +5,20 @@
 import {Layout, Menu} from 'antd';
 import React, {useEffect, useState} from 'react';
 import './index.scss'
-import {useNavigate, Outlet, Link, useLocation} from "react-router-dom";
+import {useNavigate, Outlet, useLocation} from "react-router-dom";
 import {menuItems, navigateData} from "@/pages/Layout/menuData";
 import {useStore} from "@/store";
 import {RevealUserInfo} from "@/pages/Layout/components/userInfo";
 import {observer} from "mobx-react-lite";
 import {TagsView} from "@/pages/Layout/components/tagsView";
+import {MenuFoldOutlined, MenuUnfoldOutlined} from "@ant-design/icons";
 
 const {Header, Sider, Content} = Layout;
 const HomeLayout = () => {
     const location = useLocation()
     const Navigate = useNavigate()
     const {userStore, tagsStore} = useStore()
+    const [collapsed, setCollapsed] = useState(false);
     const [selectedKey, setSelectedKey] = useState(location.pathname);
     const handleMenuClick = ({item, key, keyPath, domEvent}) => {
 
@@ -42,30 +44,49 @@ const HomeLayout = () => {
     }, [userStore])
     return (
         <Layout>
-            <Header className="header">
-                <div className="logo">
+            <Sider width={collapsed ? 64 : 200} className="site-layout-background">
+                <div className="logo" style={{display: collapsed ? 'none' : 'block'}}>
                     <img src="./logo.png" alt=""/>
                 </div>
-                <div className="userInfo">
+                <Menu
+                    mode="inline"
+                    defaultSelectedKeys={selectedKey}
+                    theme={'dark'}
+                    onClick={handleMenuClick}
+                    style={{
+                        borderRight: 0,
+                    }}
+                    items={menuItems}
+                />
+            </Sider>
+            <Layout className="site-layout">
+                <Header
+                    className="site-layout-background"
+                    style={{
+                        padding: 0,
+                    }}
+                >
+                    <div className="logo d-flex">
 
-                    <RevealUserInfo info={userStore.userInfo}></RevealUserInfo>
-                </div>
-            </Header>
-            <Layout>
-                <Sider width={200} className="site-layout-background">
-                    <Menu
-                        mode="inline"
-                        defaultSelectedKeys={selectedKey}
-                        theme={'dark'}
-                        onClick={handleMenuClick}
-                        style={{
-                            height: '100%',
-                            borderRight: 0,
-                        }}
-                        items={menuItems}
-                    />
-                </Sider>
-                <Layout>
+                        <span className={'collapsed'}>
+                        {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
+                            className: 'trigger',
+                            onClick: () => setCollapsed(!collapsed),
+                        })}
+                    </span>
+                        <img style={{display: collapsed ? 'block' : 'none'}} src="./logo.png" alt=""/>
+                    </div>
+
+
+                    <div className="userInfo">
+
+                        <RevealUserInfo info={userStore.userInfo}></RevealUserInfo>
+                    </div>
+                </Header>
+                <Content
+                    className="site-layout-background"
+
+                >
                     <TagsView highlight={selectedKey} ClickTag={handleClickTag} data={tagsStore.tagsArr}
                               delTag={delTag}></TagsView>
                     <Content
@@ -78,7 +99,7 @@ const HomeLayout = () => {
                     >
                         <Outlet></Outlet>
                     </Content>
-                </Layout>
+                </Content>
             </Layout>
         </Layout>
     )

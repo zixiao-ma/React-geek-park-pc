@@ -1,3 +1,12 @@
-.ant-select {
-  width: 270px !important;
+.filterData .ant-select {
+  width: 190px !important;
+}
+
+.tableCard {
+  height: 500px;
+  overflow: auto;
+}
+
+::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
 }

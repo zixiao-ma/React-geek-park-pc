@@ -20,10 +20,10 @@ class App extends React.Component {
                                 <HomeLayout/>
                             </AuthRoute>
                         }>
-                          
+
                             <Route index element={<DataOverview/>}></Route>
                             <Route path='contentManagement' element={<ContentManagement/>}></Route>
-                            <Route path='postArticle' element={<PostArticle/>}></Route>
+                            <Route path='/postArticle' element={<PostArticle/>}></Route>
                         </Route>
                     </Routes>
                 </div>

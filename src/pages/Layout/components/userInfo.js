@@ -67,7 +67,7 @@ export const RevealUserInfo = (props) => {
             <a onClick={(e) => e.preventDefault()}>
                 <Space>
                     <Avatar src={props.info.photo}/>
-                    {props.info.name}
+                    极客园
                     <DownOutlined/>
                 </Space>
             </a>
